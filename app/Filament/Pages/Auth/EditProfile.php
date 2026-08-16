@@ -15,12 +15,12 @@ class EditProfile extends BaseEditProfile
 {
     public function getTitle(): string
     {
-        return 'Account settings';
+        return 'Change email & password';
     }
 
     public static function getLabel(): string
     {
-        return 'Profile';
+        return 'Change email & password';
     }
 
     public function form(Schema $schema): Schema

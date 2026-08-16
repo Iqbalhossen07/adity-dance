@@ -3,18 +3,21 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Auth\EditProfile;
+use App\Filament\Widgets\AccountSecurityWidget;
+use App\Filament\Widgets\ContentOverview;
 use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\Width;
+use Filament\Support\Icons\Heroicon;
 use Filament\View\PanelsRenderHook;
-use Filament\Widgets\AccountWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -34,6 +37,12 @@ class AdminPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->profile(EditProfile::class, isSimple: false)
+            ->userMenuItems([
+                'profile' => MenuItem::make()
+                    ->label('Change email & password')
+                    ->icon(Heroicon::OutlinedLockClosed)
+                    ->url(fn (): string => url('/admin/account-settings')),
+            ])
             ->brandName('Adity Dance')
             ->brandLogo(fn () => view('filament.admin.logo'))
             ->brandLogoHeight('2.75rem')
@@ -63,8 +72,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                \App\Filament\Widgets\ContentOverview::class,
-                AccountWidget::class,
+                AccountSecurityWidget::class,
+                ContentOverview::class,
             ])
             ->middleware([
                 EncryptCookies::class,

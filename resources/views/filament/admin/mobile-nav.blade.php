@@ -49,7 +49,7 @@
             'group' => 'Quick links',
             'items' => [
                 ['label' => 'View website', 'url' => url('/'), 'desc' => 'Open public site', 'external' => true],
-                ['label' => 'Profile', 'url' => url('/admin/profile'), 'desc' => 'Update email & password'],
+                ['label' => 'Account settings', 'url' => url('/admin/account-settings'), 'desc' => 'Change email & password'],
             ],
         ],
     ];
