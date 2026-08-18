@@ -27,8 +27,9 @@ export default function RootLayout({
     <html
       lang="en-GB"
       className={`${outfit.variable} ${cormorant.variable} scroll-smooth`}
+      suppressHydrationWarning
     >
-      <body className="min-h-screen overflow-x-hidden antialiased">
+      <body className="min-h-screen overflow-x-hidden antialiased" suppressHydrationWarning>
         {children}
       </body>
     </html>
