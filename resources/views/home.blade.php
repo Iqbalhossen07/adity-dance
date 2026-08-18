@@ -270,7 +270,7 @@
                                     <p class="mt-1.5 line-clamp-1 text-xs text-ink-soft sm:mt-2 sm:text-sm">{{ $event->location }}</p>
                                 @endif
                                 @if ($event->description)
-                                    <p class="mt-2 line-clamp-3 hidden text-sm leading-relaxed text-ink-soft sm:mt-3 sm:block">{{ $event->description }}</p>
+                                    <div class="mt-2 line-clamp-3 hidden text-sm leading-relaxed text-ink-soft sm:mt-3 sm:block prose prose-invert prose-sm max-w-none">{!! $event->description !!}</div>
                                 @endif
                                 @if ($event->ticket_link)
                                     <a
@@ -398,7 +398,7 @@
                             <div class="border-t border-gold/25 px-4 py-4 sm:px-6 sm:py-5">
                                 <h3 class="font-display text-xl text-gold-soft sm:text-2xl">{{ $featuredVideo->title }}</h3>
                                 @if ($featuredVideo->description)
-                                    <p class="mt-1 text-sm text-white/65">{{ $featuredVideo->description }}</p>
+                                    <div class="mt-1 text-sm text-white/65 prose prose-invert max-w-none prose-sm">{{ $featuredVideo->description }}</p>
                                 @endif
                             </div>
                         </div>

@@ -42,7 +42,7 @@
                                     <p class="mt-1.5 line-clamp-1 text-xs text-ink-soft sm:mt-2 sm:text-sm">{{ $event->location }}</p>
                                 @endif
                                 @if ($event->description)
-                                    <p class="mt-2 line-clamp-3 hidden text-sm leading-relaxed text-ink-soft sm:mt-3 sm:block">{{ $event->description }}</p>
+                                    <div class="mt-2 line-clamp-3 hidden text-sm leading-relaxed text-ink-soft sm:mt-3 sm:block prose prose-invert prose-sm max-w-none">{!! $event->description !!}</div>
                                 @endif
                                 @if ($event->ticket_link)
                                     <a
@@ -105,7 +105,7 @@
                             </p>
                             <h3 class="mt-1.5 font-display text-base leading-snug text-white sm:mt-2 sm:text-2xl">{{ $event->title }}</h3>
                             @if ($event->description)
-                                <p class="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-soft sm:mt-3 sm:line-clamp-3 sm:text-sm">{{ $event->description }}</p>
+                                <div class="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-soft sm:mt-3 sm:line-clamp-3 sm:text-sm prose prose-invert prose-sm max-w-none">{!! $event->description !!}</div>
                             @endif
                             <a href="{{ route('gallery') }}" class="mt-auto pt-3 text-xs font-semibold text-gold-soft transition hover:text-white sm:pt-5 sm:text-sm">
                                 View Gallery →
@@ -125,7 +125,7 @@
         $eventSchema = $upcomingEvents->map(fn ($event) => array_filter([
             '@type' => 'Event',
             'name' => $event->title,
-            'description' => $event->description,
+            'description' => strip_tags($event->description),
             'startDate' => $event->event_date->toDateString(),
             'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
             'eventStatus' => 'https://schema.org/EventScheduled',

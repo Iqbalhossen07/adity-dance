@@ -44,7 +44,7 @@
                                 {{ $video->title }}
                             </h3>
                             @if ($video->description)
-                                <p class="mt-1.5 line-clamp-2 text-xs text-ink-soft sm:mt-2 sm:text-sm">{{ $video->description }}</p>
+                                <div class="mt-1.5 line-clamp-2 text-xs text-ink-soft sm:mt-2 sm:text-sm prose prose-invert max-w-none">{!! $video->description !!}</div>
                             @endif
                         </div>
                     </article>
@@ -63,7 +63,7 @@
             ->map(fn ($video) => [
                 '@type' => 'VideoObject',
                 'name' => $video->title,
-                'description' => $video->description ?: $video->title,
+                'description' => strip_tags($video->description) ?: $video->title,
                 'thumbnailUrl' => $video->thumbnail_url,
                 'embedUrl' => $video->embed_url,
                 'contentUrl' => $video->youtube_url,
