@@ -10,8 +10,11 @@ export default function DashboardHeader({ user }: { user: any }) {
     return () => clearInterval(timer);
   }, []);
 
+  const londonTimeStr = time.toLocaleString('en-US', { timeZone: 'Europe/London' });
+  const londonDate = new Date(londonTimeStr);
+
   const greetings = () => {
-    const hour = time.getHours();
+    const hour = londonDate.getHours();
     if (hour < 12) return "Good morning";
     if (hour < 18) return "Good afternoon";
     return "Good evening";
@@ -32,10 +35,10 @@ export default function DashboardHeader({ user }: { user: any }) {
 
       <div className="flex flex-col items-end justify-center">
         <p className="text-3xl font-display font-bold text-white tracking-wider">
-          {time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+          {time.toLocaleTimeString('en-US', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit' })} <span className="text-lg text-gold-soft">UK</span>
         </p>
         <p className="text-sm font-medium text-gold-soft">
-          {time.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+          {time.toLocaleDateString('en-US', { timeZone: 'Europe/London', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
         </p>
       </div>
     </div>

@@ -4,9 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
-const NavItem = ({ href, icon, label, isActive }: { href: string; icon: React.ReactNode; label: string; isActive: boolean }) => (
+const NavItem = ({ href, icon, label, isActive, onClick }: { href: string; icon: React.ReactNode; label: string; isActive: boolean; onClick?: () => void }) => (
   <Link
     href={href}
+    onClick={onClick}
     className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
       isActive
         ? "bg-white/10 text-white"
@@ -237,13 +238,71 @@ export default function AdminClientLayout({
           />
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="flex flex-1 flex-col items-center justify-center p-2 text-[10px] font-semibold uppercase tracking-wider text-ink-soft hover:text-white transition-colors"
+            className={`flex flex-1 flex-col items-center justify-center p-2 text-[10px] font-semibold uppercase tracking-wider transition-colors ${isMobileMenuOpen ? 'text-white' : 'text-ink-soft hover:text-white'}`}
           >
-            <svg className="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-            Menu
+            {isMobileMenuOpen ? (
+              <svg className="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+            {isMobileMenuOpen ? 'Close' : 'Menu'}
           </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div 
+        className={`fixed inset-0 z-40 bg-[#0d0a0b]/95 backdrop-blur-xl transition-all duration-300 lg:hidden flex flex-col pt-16 px-6 pb-24 overflow-y-auto ${
+          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+        }`}
+      >
+        <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gold/10">
+          <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border-2 border-gold/20 bg-[#140b0e]">
+            {user?.image_path ? (
+              <img src={user.image_path.startsWith('/') ? user.image_path : `/images/${user.image_path}`} alt={user?.name || "Admin"} className="h-full w-full object-cover" />
+            ) : (
+              <span className="text-sm font-bold text-gold-soft">
+                {user?.name ? user.name.charAt(0).toUpperCase() : "A"}
+              </span>
+            )}
+          </div>
+          <div>
+            <h3 className="font-display text-xl font-bold text-white leading-tight">{user?.name || "Admin"}</h3>
+            <p className="text-xs text-gold-soft">{user?.email || "admin@example.com"}</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-6">
+          <div>
+            <div className="mb-3 text-[10px] font-bold tracking-widest text-ink-soft uppercase">Website Content</div>
+            <div className="flex flex-col gap-2">
+              <NavItem onClick={() => setIsMobileMenuOpen(false)} href="/admin/events" label="Events" isActive={pathname.startsWith("/admin/events")} icon={<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>} />
+              <NavItem onClick={() => setIsMobileMenuOpen(false)} href="/admin/videos" label="Videos" isActive={pathname.startsWith("/admin/videos")} icon={<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>} />
+            </div>
+          </div>
+
+          <div>
+            <div className="mb-3 text-[10px] font-bold tracking-widest text-ink-soft uppercase">Gallery</div>
+            <div className="flex flex-col gap-2">
+              <NavItem onClick={() => setIsMobileMenuOpen(false)} href="/admin/gallery-categories" label="Categories" isActive={pathname.startsWith("/admin/gallery-categories")} icon={<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>} />
+              <NavItem onClick={() => setIsMobileMenuOpen(false)} href="/admin/gallery-images" label="Images" isActive={pathname.startsWith("/admin/gallery-images")} icon={<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>} />
+            </div>
+          </div>
+
+          <div>
+            <div className="mb-3 text-[10px] font-bold tracking-widest text-ink-soft uppercase">Settings</div>
+            <div className="flex flex-col gap-2">
+              <NavItem onClick={() => setIsMobileMenuOpen(false)} href="/admin/account-settings" label="Account settings" isActive={pathname.startsWith("/admin/account-settings")} icon={<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>} />
+              <button onClick={() => window.location.href = '/'} className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-[#cb5660] hover:bg-[#cb5660]/10 transition-colors">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                Logout
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
