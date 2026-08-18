@@ -36,16 +36,8 @@ export default async function VideosPage() {
       ) : (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {videos.map((video) => {
-            // Extract youtube ID for thumbnail
-            let youtubeId = "";
-            try {
-              const url = new URL(video.youtube_url);
-              if (url.hostname.includes("youtube.com")) {
-                youtubeId = url.searchParams.get("v") || "";
-              } else if (url.hostname.includes("youtu.be")) {
-                youtubeId = url.pathname.slice(1);
-              }
-            } catch (e) {}
+            const match = video.youtube_url.match(/(?:youtu\\.be\\/|youtube\\.com\\/(?:embed\\/|v\\/|watch\\?v=|watch\\?.+&v=|shorts\\/))([^"&?\\/\\s]{11})/);
+            const youtubeId = match ? match[1] : null;
 
             return (
               <div key={video.id.toString()} className="relative overflow-hidden rounded-2xl border border-gold/10 bg-[#140b0e] shadow-xl transition-all hover:border-gold/30 flex flex-col">
@@ -86,13 +78,19 @@ export default async function VideosPage() {
                       <ViewVideoButton video={video} />
                       <Link
                         href={`/admin/videos/${video.id}/edit`}
-                        className="text-sm font-medium text-gold-soft hover:text-white transition"
+                        className="flex items-center gap-1.5 rounded-lg border border-gold/20 bg-gold/10 px-3 py-1.5 text-xs font-semibold text-gold-soft hover:bg-gold/20 hover:text-white transition-colors"
                       >
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
                         Edit
                       </Link>
                       <form action={deleteVideo}>
                         <input type="hidden" name="id" value={video.id.toString()} />
-                        <button type="submit" className="text-sm font-medium text-[#cb5660] hover:text-[#ba4d55] transition">
+                        <button type="submit" className="flex items-center gap-1.5 rounded-lg border border-[#cb5660]/30 bg-[#cb5660]/10 px-3 py-1.5 text-xs font-semibold text-[#cb5660] hover:bg-[#cb5660]/20 hover:text-white transition-colors">
+                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
                           Delete
                         </button>
                       </form>
