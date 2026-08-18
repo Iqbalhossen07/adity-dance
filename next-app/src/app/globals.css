@@ -648,3 +648,37 @@
         height: 1.1rem;
     }
 }
+
+/* Dark Quill Editor overrides */
+.dark-quill .ql-toolbar.ql-snow {
+  border: none;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  background: rgba(26, 10, 15, 1);
+}
+
+.dark-quill .ql-container.ql-snow {
+  border: none;
+  color: white;
+  min-height: 150px;
+}
+
+.dark-quill .ql-editor.ql-blank::before {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.dark-quill .ql-snow .ql-stroke {
+  stroke: rgba(212, 175, 55, 0.8);
+}
+
+.dark-quill .ql-snow .ql-fill, .dark-quill .ql-snow .ql-stroke.ql-fill {
+  fill: rgba(212, 175, 55, 0.8);
+}
+
+.dark-quill .ql-snow .ql-picker {
+  color: rgba(212, 175, 55, 0.8);
+}
+
+.dark-quill .ql-snow .ql-picker-options {
+  background: rgba(26, 10, 15, 1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
