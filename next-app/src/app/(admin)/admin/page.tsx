@@ -1,7 +1,11 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 
+import DashboardHeader from "./DashboardHeader";
+
 export default async function AdminDashboard() {
+  const user = await prisma.users.findFirst({ orderBy: { id: 'asc' } });
+  
   const eventsCount = await prisma.events.count();
   const pastEventsCount = await prisma.events.count({
     where: { event_date: { lt: new Date() } }
@@ -13,10 +17,8 @@ export default async function AdminDashboard() {
 
   return (
     <div className="flex flex-col gap-8">
-      {/* Page Title */}
-      <h1 className="font-display text-4xl font-semibold tracking-wide text-white">
-        Dashboard
-      </h1>
+      {/* Page Title & Clock */}
+      <DashboardHeader user={user} />
 
       {/* Account Security Card */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center justify-between rounded-2xl border border-gold/10 bg-[#140b0e] p-6 shadow-xl">
