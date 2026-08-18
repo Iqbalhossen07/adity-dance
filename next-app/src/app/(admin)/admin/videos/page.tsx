@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
 import ViewVideoButton from "./ViewVideoButton";
+import DeleteConfirmButton from "@/components/ui/DeleteConfirmButton";
 
 async function deleteVideo(formData: FormData) {
   "use server";
@@ -85,15 +86,7 @@ export default async function VideosPage() {
                         </svg>
                         Edit
                       </Link>
-                      <form action={deleteVideo}>
-                        <input type="hidden" name="id" value={video.id.toString()} />
-                        <button type="submit" className="flex items-center gap-1.5 rounded-lg border border-[#cb5660]/30 bg-[#cb5660]/10 px-3 py-1.5 text-xs font-semibold text-[#cb5660] hover:bg-[#cb5660]/20 hover:text-white transition-colors">
-                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                          Delete
-                        </button>
-                      </form>
+                      <DeleteConfirmButton id={video.id.toString()} action={deleteVideo} />
                     </div>
                   </div>
                 </div>
