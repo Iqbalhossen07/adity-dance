@@ -36,7 +36,7 @@ export default async function VideosPage() {
       ) : (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {videos.map((video) => {
-            const match = video.youtube_url.match(/(?:youtu\\.be\\/|youtube\\.com\\/(?:embed\\/|v\\/|watch\\?v=|watch\\?.+&v=|shorts\\/))([^"&?\\/\\s]{11})/);
+            const match = video.youtube_url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([^"&?\/\s]{11})/);
             const youtubeId = match ? match[1] : null;
 
             return (

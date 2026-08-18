@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 export default function ViewVideoButton({ video }: { video: any }) {
   const handleView = () => {
     // Extract youtube ID for embed
-    const match = video.youtube_url.match(/(?:youtu\\.be\\/|youtube\\.com\\/(?:embed\\/|v\\/|watch\\?v=|watch\\?.+&v=|shorts\\/))([^"&?\\/\\s]{11})/);
+    const match = video.youtube_url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([^"&?\/\s]{11})/);
     const youtubeId = match ? match[1] : null;
 
     Swal.fire({
