@@ -62,6 +62,10 @@ class AdminPanelProvider extends PanelProvider
                 'warning' => Color::hex('#c9a24a'),
             ])
             ->renderHook(
+                PanelsRenderHook::SIDEBAR_FOOTER,
+                fn (): string => Blade::render('@include(\'filament.admin.partials.logout-button\', [\'variant\' => \'sidebar\'])'),
+            )
+            ->renderHook(
                 PanelsRenderHook::BODY_END,
                 fn (): string => Blade::render('@include(\'filament.admin.mobile-nav\')'),
             )

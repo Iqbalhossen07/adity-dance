@@ -1,0 +1,132 @@
+"use client";
+
+import { useState } from "react";
+import Swal from "sweetalert2";
+import { updateUserAccount } from "./actions";
+
+export default function AccountSettingsClient({ user }: { user: { name: string; email: string } | null }) {
+  const [isMutating, setIsMutating] = useState(false);
+
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
+
+    if (password && password !== confirmPassword) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Passwords do not match!",
+        background: "#140b0e",
+        color: "#fff",
+      });
+      return;
+    }
+
+    setIsMutating(true);
+    try {
+      await updateUserAccount({ name, email, password });
+      Swal.fire({
+        icon: "success",
+        title: "Updated",
+        text: "Account settings have been updated.",
+        background: "#140b0e",
+        color: "#fff",
+        confirmButtonColor: "#cb5660",
+      });
+      if (password) {
+        // clear password fields
+        (document.getElementById("password") as HTMLInputElement).value = "";
+        (document.getElementById("confirmPassword") as HTMLInputElement).value = "";
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Something went wrong.",
+        background: "#140b0e",
+        color: "#fff",
+      });
+    } finally {
+      setIsMutating(false);
+    }
+  };
+
+  if (!user) {
+    return <div className="text-white">No admin user found.</div>;
+  }
+
+  return (
+    <div className="flex flex-col gap-8">
+      <h1 className="font-display text-4xl font-semibold tracking-wide text-white">Account Settings</h1>
+
+      <div className="overflow-hidden rounded-2xl border border-gold/10 bg-[#140b0e] p-6 sm:p-8 shadow-xl max-w-2xl">
+        <form onSubmit={handleUpdate} className="flex flex-col gap-6">
+          
+          <div>
+            <label className="mb-2 block text-sm font-semibold tracking-wide text-ink-soft">Full Name</label>
+            <input
+              name="name"
+              type="text"
+              defaultValue={user.name}
+              required
+              className="w-full rounded-lg border border-gold/20 bg-[#0d0a0b] px-4 py-3 text-white focus:border-[#cb5660] focus:outline-none focus:ring-1 focus:ring-[#cb5660]"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-semibold tracking-wide text-ink-soft">Email Address</label>
+            <input
+              name="email"
+              type="email"
+              defaultValue={user.email}
+              required
+              className="w-full rounded-lg border border-gold/20 bg-[#0d0a0b] px-4 py-3 text-white focus:border-[#cb5660] focus:outline-none focus:ring-1 focus:ring-[#cb5660]"
+            />
+          </div>
+
+          <div className="mt-4 border-t border-gold/10 pt-6">
+            <h3 className="mb-4 text-lg font-semibold text-white">Change Password</h3>
+            <p className="mb-6 text-sm text-ink-soft">Leave blank if you do not wish to change your password.</p>
+            
+            <div className="flex flex-col gap-6">
+              <div>
+                <label className="mb-2 block text-sm font-semibold tracking-wide text-ink-soft">New Password</label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  className="w-full rounded-lg border border-gold/20 bg-[#0d0a0b] px-4 py-3 text-white focus:border-[#cb5660] focus:outline-none focus:ring-1 focus:ring-[#cb5660]"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-semibold tracking-wide text-ink-soft">Confirm New Password</label>
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  className="w-full rounded-lg border border-gold/20 bg-[#0d0a0b] px-4 py-3 text-white focus:border-[#cb5660] focus:outline-none focus:ring-1 focus:ring-[#cb5660]"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 flex justify-end border-t border-gold/10 pt-6">
+            <button
+              type="submit"
+              disabled={isMutating}
+              className="rounded-lg bg-[#cb5660] px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#ba4d55] disabled:opacity-50"
+            >
+              Save Changes
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  );
+}

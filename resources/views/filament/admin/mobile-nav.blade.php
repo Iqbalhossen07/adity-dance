@@ -166,6 +166,8 @@
                         </div>
                     </section>
                 @endforeach
+
+                @include('filament.admin.partials.logout-button', ['variant' => 'sheet'])
             </div>
         </div>
     </div>
