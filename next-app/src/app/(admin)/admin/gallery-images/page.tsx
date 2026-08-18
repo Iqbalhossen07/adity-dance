@@ -40,7 +40,7 @@ export default async function GalleryImagesPage() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {images.map((img) => (
             <div key={img.id.toString()} className="relative overflow-hidden rounded-2xl border border-gold/10 bg-[#140b0e] shadow-xl transition-all hover:border-gold/30 flex flex-col">
-              <div className="relative aspect-square w-full bg-black">
+              <div className="relative h-56 w-full bg-black">
                 <img src={img.image_path ? (img.image_path.startsWith('/') ? img.image_path : `/images/${img.image_path}`) : ''} alt={img.title || "Gallery image"} className="w-full h-full object-cover" />
               </div>
               
