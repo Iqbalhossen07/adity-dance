@@ -8,7 +8,7 @@ export default async function AccountSettingsPage() {
 
   return (
     <AccountSettingsClient 
-      user={user ? { name: user.name, email: user.email } : null} 
+      user={user ? { name: user.name, email: user.email, image_path: user.image_path } : null} 
     />
   );
 }
