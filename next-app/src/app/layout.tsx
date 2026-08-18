@@ -16,6 +16,10 @@ const cormorant = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: "Adity Dance CIC — Celebrating Culture & Creativity",
   description: "Adity Dance CIC — celebrating culture and creativity through the joy of dance. Community events, performances, and gallery moments in Dagenham, Essex and across the UK.",
+  icons: {
+    icon: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({
