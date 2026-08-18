@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
+import ViewImageButton from "./ViewImageButton";
 
 async function deleteImage(formData: FormData) {
   "use server";
@@ -61,6 +62,7 @@ export default async function GalleryImagesPage() {
                   )}
 
                   <div className="flex flex-wrap items-center gap-2">
+                    <ViewImageButton image={img} />
                     <Link
                       href={`/admin/gallery-images/${img.id}/edit`}
                       className="flex items-center gap-1.5 rounded-lg border border-gold/20 bg-gold/10 px-3 py-1.5 text-xs font-semibold text-gold-soft hover:bg-gold/20 hover:text-white transition-colors"
