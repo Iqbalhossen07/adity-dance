@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
+import ViewVideoButton from "./ViewVideoButton";
 
 async function deleteVideo(formData: FormData) {
   "use server";
@@ -82,6 +83,7 @@ export default async function VideosPage() {
                     )}
 
                     <div className="flex items-center gap-3">
+                      <ViewVideoButton video={video} />
                       <Link
                         href={`/admin/videos/${video.id}/edit`}
                         className="text-sm font-medium text-gold-soft hover:text-white transition"

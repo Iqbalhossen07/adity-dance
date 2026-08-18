@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
+import ViewEventButton from "./ViewEventButton";
 
 async function deleteEvent(formData: FormData) {
   "use server";
@@ -63,6 +64,7 @@ export default async function EventsPage() {
               )}
 
               <div className="mt-6 flex items-center justify-end gap-3 border-t border-gold/10 pt-4">
+                <ViewEventButton event={event} />
                 <Link
                   href={`/admin/events/${event.id}/edit`}
                   className="text-sm font-medium text-gold-soft hover:text-white transition"
