@@ -41,7 +41,7 @@ export default async function GalleryCategoriesPage() {
               <h3 className="font-display text-xl font-bold text-white mb-2">{category.name}</h3>
               <p className="text-sm text-ink-soft mb-6">Slug: {category.slug}</p>
 
-              <div className="mt-auto flex items-center justify-end gap-3 border-t border-gold/10 pt-4">
+              <div className="mt-auto flex flex-wrap items-center justify-end gap-2 border-t border-gold/10 pt-4">
                 <Link
                   href={`/admin/gallery-categories/${category.id}/edit`}
                   className="flex items-center gap-1.5 rounded-lg border border-gold/20 bg-gold/10 px-3 py-1.5 text-xs font-semibold text-gold-soft hover:bg-gold/20 hover:text-white transition-colors"

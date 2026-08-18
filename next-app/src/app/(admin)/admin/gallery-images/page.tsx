@@ -40,14 +40,14 @@ export default async function GalleryImagesPage() {
           {images.map((img) => (
             <div key={img.id.toString()} className="relative overflow-hidden rounded-2xl border border-gold/10 bg-[#140b0e] shadow-xl transition-all hover:border-gold/30 flex flex-col">
               <div className="relative aspect-square w-full bg-black">
-                <img src={img.image_path} alt={img.title || "Gallery image"} className="w-full h-full object-cover" />
+                <img src={img.image_path ? (img.image_path.startsWith('/') ? img.image_path : `/images/${img.image_path}`) : ''} alt={img.title || "Gallery image"} className="w-full h-full object-cover" />
               </div>
               
               <div className="p-4 flex-1 flex flex-col">
                 <h3 className="font-display text-lg font-bold text-white mb-1 line-clamp-1">{img.title || "Untitled"}</h3>
                 <p className="text-xs text-gold-soft mb-4">{img.gallery_categories?.name || "No Category"}</p>
 
-                <div className="mt-auto flex items-center justify-between">
+                <div className="mt-auto flex flex-wrap items-center justify-between gap-3">
                   {img.is_published ? (
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-green-500/10 px-2 py-0.5 text-[10px] font-medium text-green-400">
                       <span className="h-1 w-1 rounded-full bg-green-400"></span>
@@ -60,7 +60,7 @@ export default async function GalleryImagesPage() {
                     </span>
                   )}
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-2">
                     <Link
                       href={`/admin/gallery-images/${img.id}/edit`}
                       className="flex items-center gap-1.5 rounded-lg border border-gold/20 bg-gold/10 px-3 py-1.5 text-xs font-semibold text-gold-soft hover:bg-gold/20 hover:text-white transition-colors"

@@ -61,7 +61,7 @@ export default async function VideosPage() {
                     <h3 className="font-display text-xl font-bold text-white line-clamp-2">{video.title}</h3>
                   </div>
 
-                  <div className="mt-auto pt-4 flex items-center justify-between">
+                  <div className="mt-auto pt-4 flex flex-wrap items-center justify-between gap-3">
                     {video.is_published ? (
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-green-500/10 px-2.5 py-1 text-xs font-medium text-green-400">
                         <span className="h-1.5 w-1.5 rounded-full bg-green-400"></span>
@@ -74,7 +74,7 @@ export default async function VideosPage() {
                       </span>
                     )}
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-2">
                       <ViewVideoButton video={video} />
                       <Link
                         href={`/admin/videos/${video.id}/edit`}

@@ -8,7 +8,10 @@ import { saveImage } from "./formActions";
 export default function ImageForm({ image, categories }: { image?: any, categories: any[] }) {
   const router = useRouter();
   const [isMutating, setIsMutating] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(image?.image_path || null);
+  const defaultPreviewUrl = image?.image_path 
+    ? (image.image_path.startsWith('/') ? image.image_path : `/images/${image.image_path}`)
+    : null;
+  const [previewUrl, setPreviewUrl] = useState<string | null>(defaultPreviewUrl);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
