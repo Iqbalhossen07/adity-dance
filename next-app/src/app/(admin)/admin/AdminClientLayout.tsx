@@ -256,11 +256,20 @@ export default function AdminClientLayout({
 
       {/* Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 z-40 bg-[#0d0a0b]/95 backdrop-blur-xl transition-all duration-300 lg:hidden flex flex-col pt-16 px-6 pb-24 overflow-y-auto ${
+        className={`fixed inset-0 z-[60] bg-[#0d0a0b] transition-all duration-300 lg:hidden flex flex-col pt-16 px-6 pb-24 overflow-y-auto ${
           isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
         }`}
       >
-        <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gold/10">
+        <button 
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="absolute top-6 right-6 p-2 text-ink-soft hover:text-white bg-white/5 rounded-full"
+        >
+          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gold/10 mt-4">
           <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border-2 border-gold/20 bg-[#140b0e]">
             {user?.image_path ? (
               <img src={user.image_path.startsWith('/') ? user.image_path : `/images/${user.image_path}`} alt={user?.name || "Admin"} className="h-full w-full object-cover" />
