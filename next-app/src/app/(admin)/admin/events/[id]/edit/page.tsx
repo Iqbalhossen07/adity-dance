@@ -2,9 +2,10 @@ import { prisma } from "@/lib/prisma";
 import EventForm from "../../EventForm";
 import { notFound } from "next/navigation";
 
-export default async function EditEventPage({ params }: { params: { id: string } }) {
+export default async function EditEventPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
   const event = await prisma.events.findUnique({
-    where: { id: BigInt(params.id) }
+    where: { id: BigInt(resolvedParams.id) }
   });
 
   if (!event) {

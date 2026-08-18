@@ -2,9 +2,10 @@ import { prisma } from "@/lib/prisma";
 import ImageForm from "../../ImageForm";
 import { notFound } from "next/navigation";
 
-export default async function EditImagePage({ params }: { params: { id: string } }) {
+export default async function EditImagePage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
   const image = await prisma.gallery_images.findUnique({
-    where: { id: BigInt(params.id) }
+    where: { id: BigInt(resolvedParams.id) }
   });
 
   if (!image) {

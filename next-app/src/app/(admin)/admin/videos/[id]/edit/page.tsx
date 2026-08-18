@@ -2,9 +2,10 @@ import { prisma } from "@/lib/prisma";
 import VideoForm from "../../VideoForm";
 import { notFound } from "next/navigation";
 
-export default async function EditVideoPage({ params }: { params: { id: string } }) {
+export default async function EditVideoPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
   const video = await prisma.videos.findUnique({
-    where: { id: BigInt(params.id) }
+    where: { id: BigInt(resolvedParams.id) }
   });
 
   if (!video) {

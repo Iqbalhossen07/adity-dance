@@ -2,9 +2,10 @@ import { prisma } from "@/lib/prisma";
 import CategoryForm from "../../CategoryForm";
 import { notFound } from "next/navigation";
 
-export default async function EditCategoryPage({ params }: { params: { id: string } }) {
+export default async function EditCategoryPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
   const category = await prisma.gallery_categories.findUnique({
-    where: { id: BigInt(params.id) }
+    where: { id: BigInt(resolvedParams.id) }
   });
 
   if (!category) {
