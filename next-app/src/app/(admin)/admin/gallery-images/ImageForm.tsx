@@ -96,7 +96,7 @@ export default function ImageForm({ image, categories }: { image?: any, categori
               <select
                 name="category_id"
                 required
-                defaultValue={image?.category_id?.toString() || ""}
+                defaultValue={image?.gallery_category_id?.toString() || ""}
                 className="w-full rounded-lg border border-gold/20 bg-[#0d0a0b] px-4 py-3 text-white focus:border-[#cb5660] focus:outline-none focus:ring-1 focus:ring-[#cb5660]"
               >
                 <option value="" disabled>Select a category</option>

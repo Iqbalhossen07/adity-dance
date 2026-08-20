@@ -14,7 +14,7 @@ export async function saveImage(formData: FormData) {
 
   const data: any = {
     title,
-    category_id: BigInt(category_id),
+    gallery_category_id: category_id ? BigInt(category_id) : null,
     sort_order,
     is_published,
   };
