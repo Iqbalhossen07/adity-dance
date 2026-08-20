@@ -432,7 +432,10 @@ export default async function Home() {
                   <div className="border-t border-gold/25 px-4 py-4 sm:px-6 sm:py-5">
                     <h3 className="font-display text-xl text-gold-soft sm:text-2xl">{featuredVideo.title}</h3>
                     {featuredVideo.description && (
-                      <p className="mt-1 text-sm text-white/65">{featuredVideo.description}</p>
+                      <div 
+                        className="mt-1 text-sm text-white/65 prose prose-invert prose-sm max-w-none"
+                        dangerouslySetInnerHTML={{ __html: featuredVideo.description }}
+                      />
                     )}
                   </div>
                 </div>
