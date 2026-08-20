@@ -398,7 +398,7 @@
                             <div class="border-t border-gold/25 px-4 py-4 sm:px-6 sm:py-5">
                                 <h3 class="font-display text-xl text-gold-soft sm:text-2xl">{{ $featuredVideo->title }}</h3>
                                 @if ($featuredVideo->description)
-                                    <div class="mt-1 text-sm text-white/65 prose prose-invert max-w-none prose-sm">{{ $featuredVideo->description }}</p>
+                                    <div class="mt-1 text-sm text-white/65 prose prose-invert max-w-none prose-sm">{!! $featuredVideo->description !!}</div>
                                 @endif
                             </div>
                         </div>
