@@ -119,7 +119,10 @@ export default async function Events() {
                         <p className="mt-1.5 line-clamp-1 text-xs text-ink-soft sm:mt-2 sm:text-sm">{event.location}</p>
                       )}
                       {event.description && (
-                        <p className="mt-2 line-clamp-3 hidden text-sm leading-relaxed text-ink-soft sm:mt-3 sm:block">{event.description}</p>
+                        <div 
+                          className="mt-2 line-clamp-3 hidden text-sm leading-relaxed text-ink-soft sm:mt-3 sm:block prose prose-invert prose-sm max-w-none"
+                          dangerouslySetInnerHTML={{ __html: event.description }}
+                        />
                       )}
                       {event.ticket_link && (
                         <a
@@ -192,7 +195,10 @@ export default async function Events() {
                       </p>
                       <h3 className="mt-1.5 font-display text-base leading-snug text-white sm:mt-2 sm:text-2xl">{event.title}</h3>
                       {event.description && (
-                        <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-soft sm:mt-3 sm:line-clamp-3 sm:text-sm">{event.description}</p>
+                        <div 
+                          className="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-soft sm:mt-3 sm:line-clamp-3 sm:text-sm prose prose-invert prose-sm max-w-none"
+                          dangerouslySetInnerHTML={{ __html: event.description }}
+                        />
                       )}
                       <Link href="/gallery" className="mt-auto pt-3 text-xs font-semibold text-gold-soft transition hover:text-white sm:pt-5 sm:text-sm">
                         View Gallery →

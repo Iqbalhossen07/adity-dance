@@ -103,7 +103,10 @@ export default async function Videos() {
                         {video.title}
                       </h3>
                       {video.description && (
-                        <p className="mt-1.5 line-clamp-2 text-xs text-ink-soft sm:mt-2 sm:text-sm">{video.description}</p>
+                        <div 
+                          className="mt-1.5 line-clamp-2 text-xs text-ink-soft sm:mt-2 sm:text-sm prose prose-invert prose-sm max-w-none"
+                          dangerouslySetInnerHTML={{ __html: video.description }}
+                        />
                       )}
                     </div>
                   </Reveal>
