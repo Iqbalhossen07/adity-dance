@@ -367,28 +367,28 @@ export default async function Home() {
                 else if (index % 4 === 2) delay = 2;
 
                 return (
-                  <button
-                    key={Number(image.id)}
-                    type="button"
-                    className={`gallery-item reveal aspect-square overflow-hidden ${delay === 1 ? 'reveal-delay-1' : ''} ${delay === 2 ? 'reveal-delay-2' : ''}`}
-                    data-lightbox-trigger
-                    data-lightbox-src={getImageUrl(image.image_path) || ""}
-                    data-lightbox-alt={alt}
-                    aria-label={`View larger: ${alt}`}
-                  >
-                    <img
-                      src={getImageUrl(image.image_path) || ""}
-                      alt={alt}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                    <span className="gallery-zoom" aria-hidden="true">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                        <circle cx="11" cy="11" r="6.5" />
-                        <path strokeLinecap="round" d="M16.5 16.5L21 21M11 8.5v5M8.5 11h5" />
-                      </svg>
-                    </span>
-                  </button>
+                  <Reveal key={Number(image.id)} delay={delay as 0|1|2|3}>
+                    <button
+                      type="button"
+                      className="gallery-item block h-full w-full aspect-square overflow-hidden group relative"
+                      data-lightbox-trigger
+                      data-lightbox-src={getImageUrl(image.image_path) || ""}
+                      data-lightbox-alt={alt}
+                      aria-label={`View larger: ${alt}`}
+                    >
+                      <img
+                        src={getImageUrl(image.image_path) || ""}
+                        alt={alt}
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                        loading="lazy"
+                      />
+                      <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                          <path strokeLinecap="round" d="M16.5 16.5L21 21M11 8.5v5M8.5 11h5" />
+                        </svg>
+                      </span>
+                    </button>
+                  </Reveal>
                 );
               })
             ) : (
@@ -457,18 +457,24 @@ export default async function Home() {
           </Reveal>
 
           <div className="mt-10 grid gap-5 sm:mt-12 md:grid-cols-3">
-            <a href="mailto:adity48@yahoo.com" className="reveal border border-gold/30 bg-white/[0.04] p-6 transition hover:border-gold/50">
-              <p className="text-[0.7rem] tracking-[0.18em] text-gold-soft uppercase">Email</p>
-              <p className="mt-2 break-all text-lg text-white">adity48@yahoo.com</p>
-            </a>
-            <a href="tel:+447894222114" className="reveal reveal-delay-1 border border-gold/30 bg-white/[0.04] p-6 transition hover:border-gold/50">
-              <p className="text-[0.7rem] tracking-[0.18em] text-gold-soft uppercase">Phone</p>
-              <p className="mt-2 text-lg text-white">+44 7894 222114</p>
-            </a>
-            <div className="reveal reveal-delay-2 border border-gold/30 bg-white/[0.04] p-6">
-              <p className="text-[0.7rem] tracking-[0.18em] text-gold-soft uppercase">Address</p>
-              <p className="mt-2 text-lg leading-snug text-white/90">175 Woodward Road, Dagenham, Essex, RM9 4SU</p>
-            </div>
+            <Reveal delay={0}>
+              <a href="mailto:adity48@yahoo.com" className="block h-full border border-gold/30 bg-white/[0.04] p-6 transition hover:border-gold/50">
+                <p className="text-[0.7rem] tracking-[0.18em] text-gold-soft uppercase">Email</p>
+                <p className="mt-2 break-all text-lg text-white">adity48@yahoo.com</p>
+              </a>
+            </Reveal>
+            <Reveal delay={1}>
+              <a href="tel:+447894222114" className="block h-full border border-gold/30 bg-white/[0.04] p-6 transition hover:border-gold/50">
+                <p className="text-[0.7rem] tracking-[0.18em] text-gold-soft uppercase">Phone</p>
+                <p className="mt-2 text-lg text-white">+44 7894 222114</p>
+              </a>
+            </Reveal>
+            <Reveal delay={2}>
+              <div className="h-full border border-gold/30 bg-white/[0.04] p-6">
+                <p className="text-[0.7rem] tracking-[0.18em] text-gold-soft uppercase">Address</p>
+                <p className="mt-2 text-lg leading-snug text-white/90">175 Woodward Road, Dagenham, Essex, RM9 4SU</p>
+              </div>
+            </Reveal>
           </div>
 
           <Reveal className="mt-8 text-center">

@@ -4,10 +4,10 @@ export function getImageUrl(path: string | null | undefined): string | null {
   if (cleanPath.startsWith("http://") || cleanPath.startsWith("https://")) {
     return cleanPath;
   }
-  if (cleanPath.startsWith("storage/")) {
+  if (cleanPath.startsWith("images/")) {
     return `/${cleanPath}`;
   }
-  return `/storage/${cleanPath}`;
+  return `/images/${cleanPath}`;
 }
 
 export function extractYoutubeId(url: string | null | undefined): string | null {
